@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -9,8 +10,7 @@
 
 #define ERR(msg) { perror(msg); exit(1); }
 #define PORT 54321
-#define HOST2 "128.214.9.98"
-#define HOST "172.16.0.1"
+#define HOST "128.214.9.98"
 
 // Driver code
 int main(void) {
@@ -29,7 +29,7 @@ int main(void) {
     if (inet_aton(HOST, &servaddr.sin_addr) == 0) ERR("invalid IP address");
 	
     int i;
-	for (i=1; i < INT16_MAX; i*=2) {
+	for (i=1; i < INT_MAX; i*=2) {
         printf("%dKiB\n", i);
         ptr = malloc(i*1024);
         if(sendto(sockfd, ptr, i*1024, 0, 
